@@ -47,16 +47,16 @@ Where user logs on to the site. Stores cookie so user remains logged in over dif
 ```
 
 ## To Do List
-[] Database
-[] Api endpoints
-    - login (get?)
-    - logout (put?)
-    - register (post)
-    - save gif (put)
-    - delete saved gif (update maybe?)
-    - delete account (delete)
-    - Display saved gifs on profile page (get)
-[] Connect to react ui
+[] Database  
+[] Api endpoints  
+    - login (get?)  
+    - logout (put?)  
+    - register (post)  
+    - save gif (put)  
+    - delete saved gif (update maybe?)  
+    - delete account (delete)  
+    - Display saved gifs on profile page (get)  
+[] Connect to react ui  
 
 ## Extras
 
