@@ -5,9 +5,6 @@ var mongoose = require('mongoose');
 var ObjectID = mongodb.ObjectID;
 var User = require('../db/user');
 
-//var CONTACTS_COLLECTION = "contacts";
-var USERS_COLLECTION = "users";
-
 var app = express();
 app.use(bodyParser.json());
 
