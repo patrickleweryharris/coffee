@@ -20,7 +20,6 @@ if (process.env.NODE_ENV === 'production') {
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  db = client.db();
   console.log("Database connection ready");
 
   // Save database object from the callback for reuse.
