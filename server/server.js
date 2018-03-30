@@ -2,14 +2,15 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var mongoose = require('mongoose');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var ObjectID = mongodb.ObjectID;
 var User = require('../db/user');
 
 var app = express();
 app.use(bodyParser.json());
 
-mongoose.connect(process.env.MONGODB_URI);
-
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://heroku_7ktv9vft:811ufk5iq4as8u5peplshtm31d@ds119489.mlab.com:19489/heroku_7ktv9vft');
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
@@ -27,7 +28,18 @@ db.once('open', function() {
   });
 });
 
-// ? API ROUTES BELOW
+// Session storage
+
+app.use(session({
+  secret: 'gifs are cool',
+  resave: true,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: db
+  })
+}));
+
+// API Endpoints
 
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
@@ -37,22 +49,27 @@ function handleError(res, reason, message, code) {
 
 /*  "/api/users"
  *    GET: shows all users
- *    POST: creates a new user
+ *    DELETE: deletes a user given by an id
  */
-app.get("/api/users", function(req, res) {
-
-    db.collection(USERS_COLLECTION).find({}).toArray(function(err, docs) {
-    if (err) {
+app.get("/api/users", function(req, res, next) {
+  User.find({}, {'name': 1, 'email': 1} , function(err, users){
+    if(err){
       handleError(res, err.message, "Failed to get list of users.");
-    } else {
-      res.status(200).json(docs);
+    }
+    else{
+      res.status(200).send(users);
     }
   });
-
 });
 
-app.post("/api/register", function(req, res) {
+app.delete("/api/users/:id", function(req, res) {
+    // TODO
+});
 
+/*  ""/api/register"
+ *    POST: creates a new user
+ */
+app.post("/api/register", function(req, res, next) {
   if (!req.body.name) {
     handleError(res, "Invalid user input", "Must provide a name.", 400);
   }
@@ -70,85 +87,55 @@ app.post("/api/register", function(req, res) {
           return next(error);
         }
         else {
+          res.status(200).send("User registered");
           req.session.userId = user._id;
-          return res.redirect('/profile'); // need to do something here
         }
       });
-
     }
-
-  // db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc) {
-  //   if (err) {
-  //     handleError(res, err.message, "Failed to create new user.");
-  //   } else {
-  //     res.status(201).json(doc.ops[0]);
-  //   }
-  // });
-
 });
 
-app.get("api/login", function(req, res){
-
-});
-
-app.get("api/logout", function(req, res){
-
-});
-
-
-/* Return saved gifs (assume each gif has gif_id?)
- * possible restful methods?
- *    GET: show saved gifs given user id
- *    PUT: update/save new gif given user id
+/*  "/api/login"
+ *    POST: Login an existing user
  */
-app.get("/api/users/:id", function(req, res) {
-
-    db.collection(USERS_COLLECTION).find({_id: new ObjectID(req.params.id)}, {gif_id:1, _id:0}).toArray(function(err, docs) {
-      if (err) {
-        handleError(res, err.message, "Failed to get list of saved gifs.");
-      } else {
-        res.status(200).json(docs);
-      }
-    });
-
+app.get("api/login", function(req, res, next){
+  // TODO
 });
 
-app.put("/api/users/:id/:gif_id", function(req, res) {
-    var updateDoc = req.body;
-    delete updateDoc._id;
-
-    db.collection(USERS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
-      if (err) {
-        handleError(res, err.message, "Failed to update user");
+/*  "/api/logout"
+ *    POST: Logout currently logged in user
+ */
+app.get("api/logout", function(req, res, next){
+  req.session.destroy(function(err) {
+      if(err) {
+        handleError(res, err.message, "Failed to log out");
       } else {
-        updateDoc._id = req.params.id;
-        res.status(200).json(updateDoc);
+        res.status(200).send("Logged Out");
       }
     });
+});
+
+
+/* "/api/gifs/:id"
+ *    GET: show saved gifs given user id
+ *    PUT: save a given gif to a user's account
+ *    DELETE: Remove a given gif from the collection of a given user
+ */
+app.get("/api/gifs/:id", function(req, res) {
+  User.find({'_id' : { $eq: req.params.id}}, {'gifs': 1} , function(err, users){
+    if(err){
+      handleError(res, err.message, "Failed to get list of gifs");
+    }
+    else{
+      res.status(200).send(users);
+    }
+  });
+});
+
+app.put("/api/gifs/:id/:gif_id", function(req, res) {
+   // TODO
   });
 
 // Delete a gif from collection (if we store each gif in a row?)
-app.delete("/api/users/:id/:gif_id", function(req, res) {
-
-    db.collection(USERS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
-      if (err) {
-        handleError(res, err.message, "Failed to delete selected gif");
-      } else {
-        res.status(200).json(req.params.id);
-      }
-    });
-});
-
-// Remove user
-//    DELETE: delete user given id
-app.delete("/api/users/:id", function(req, res) {
-
-    db.collection(USERS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
-      if (err) {
-        handleError(res, err.message, "Failed to delete user");
-      } else {
-        res.status(200).json(req.params.id);
-      }
-    });
-
+app.delete("/api/gifs/:id/:gif_id", function(req, res) {
+    // TODO
 });

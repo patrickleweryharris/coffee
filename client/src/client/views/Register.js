@@ -45,7 +45,7 @@ class Register extends Component {
         );
     }
 
-
+    // Register a new user
     register(e){
       e.preventDefault();
       if (this.state.pw !== this.state.repeat){
@@ -64,9 +64,18 @@ class Register extends Component {
             password: this.state.pw
           })
         })
+        .then(response => {
+          if (response.ok) {
+            // TODO THIS SHOULD REDIECT TO PROFILE PAGE
+            alert('Registered');
+          } else {
+            throw new Error("Registration Failed");
+          }
+        })
       }
     }
 
+    // Change the state
     handleInputChange(event){
       this.setState({[event.target.name]: event.target.value});
     }
