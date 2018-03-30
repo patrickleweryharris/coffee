@@ -3,7 +3,10 @@
 ## Table of Contents
 - [Install](#install)
 - [Usage](#usage)
+- [Deployment](#deploy)
 - [Known Bugs](#bugs)
+- [Endpoints](#endpoints)
+- [Database Schema](#schema)
 
 ## Install
 
@@ -15,11 +18,30 @@ $ npm install
 
 ## Usage
 
+To locally run the client and server, do:
 ```
 $ npm start
 ```
 
+To run just the server, do:
+
+```
+$ npm run server
+```
+Request can now be sent to `localhost:3001/api`
+
+To run just the client, do:
+
+```
+$ npm run client
+```
+The client will now run at `localhost:3000/`
+
 Please see [Solutions.md](/Solutions.md) for detailed usage instructions.
+
+## Deploy
+
+See [docs/deploy.md](/docs/deploy.md)
 
 
 ## Bugs
@@ -29,10 +51,9 @@ is included in the search result for a second before disappearing.
 
 ## Endpoints
 
-`api/login`
-Where user logs on to the site. Stores cookie so user remains logged in over different sessions
+See [docs/api.md](/docs/api.md)
 
-## Database Schema
+## Schema
 
 ```
 
@@ -47,8 +68,8 @@ Where user logs on to the site. Stores cookie so user remains logged in over dif
 ```
 
 ## To Do List
-[] Database  
-[] Api endpoints  
+[ ] Database  
+[ ] Api endpoints  
     - login (get?)  
     - logout (put?)  
     - register (post)  
@@ -56,7 +77,7 @@ Where user logs on to the site. Stores cookie so user remains logged in over dif
     - delete saved gif (update maybe?)  
     - delete account (delete)  
     - Display saved gifs on profile page (get)  
-[] Connect to react ui  
+[ ] Connect to react ui  
 
 ## Extras
 

@@ -1,20 +1,33 @@
 {
-  "name": "coffee",
-  "version": "0.1.0",
-  "private": true,
+  "name": "coffee-server",
+  "version": "1.0.0",
+  "description": "Server for the coffee gif app",
+  "main": "start-client.js",
+  "private": "true",
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
-    "mongodb": "^3.0.4",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1"
+    "mongodb": "^3.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "3.1.0"
+  },
+  "directories": {
+    "doc": "docs"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server/server.js",
+    "client": "node start-client.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csc309-18s/assignment-3-coffee.git"
+  },
+  "author": "Coffee Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/csc309-18s/assignment-3-coffee/issues"
+  },
+  "homepage": "https://github.com/csc309-18s/assignment-3-coffee#readme"
 }

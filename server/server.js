@@ -43,7 +43,7 @@ function handleError(res, reason, message, code) {
  *    POST: creates a new user
  */
 app.get("/api/users", function(req, res) {
-    
+
     db.collection(USERS_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get list of users.");
@@ -55,9 +55,9 @@ app.get("/api/users", function(req, res) {
 });
 
 app.post("/api/register", function(req, res) {
-  
+
   var newUser = req.body;
-  
+
   if (!req.body.name) {
     handleError(res, "Invalid user input", "Must provide a name.", 400);
   }
@@ -69,7 +69,7 @@ app.post("/api/register", function(req, res) {
       res.status(201).json(doc.ops[0]);
     }
   });
-  
+
 });
 
 app.get("api/login", function(req, res){
@@ -83,15 +83,15 @@ app.get("api/login", function(req, res){
  *    PUT: update/save new gif given user id
  */
 app.get("/api/users/:id", function(req, res) {
-    
-    db.collection(USERS_COLLECTION).find({_id: new ObjectID(req.params.id)}, {gif_id:1, _id:0})).toArray(function(err, docs) {
+
+    db.collection(USERS_COLLECTION).find({_id: new ObjectID(req.params.id)}, {gif_id:1, _id:0}).toArray(function(err, docs) {
       if (err) {
         handleError(res, err.message, "Failed to get list of saved gifs.");
       } else {
         res.status(200).json(docs);
       }
     });
-  
+
 });
 
 app.put("/api/users/:id/:gif_id", function(req, res) {
@@ -110,7 +110,7 @@ app.put("/api/users/:id/:gif_id", function(req, res) {
 
 // Delete a gif from collection (if we store each gif in a row?)
 app.delete("/api/users/:id/:gif_id", function(req, res) {
-    
+
     db.collection(USERS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
       if (err) {
         handleError(res, err.message, "Failed to delete selected gif");
@@ -123,7 +123,7 @@ app.delete("/api/users/:id/:gif_id", function(req, res) {
 // Remove user
 //    DELETE: delete user given id
 app.delete("/api/users/:id", function(req, res) {
-  
+
     db.collection(USERS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
       if (err) {
         handleError(res, err.message, "Failed to delete user");
@@ -131,5 +131,5 @@ app.delete("/api/users/:id", function(req, res) {
         res.status(200).json(req.params.id);
       }
     });
-  
+
 });
