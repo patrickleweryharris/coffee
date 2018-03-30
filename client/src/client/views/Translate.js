@@ -59,7 +59,7 @@ render() {
      Based on code from class */
   doTranslate(e) {
     e.preventDefault();
-    fetch("http://api.giphy.com/v1/gifs/translate?api_key=vRvUFu9f8SrzzJWqp9b7aiIKTqKExxA2&s="+this.state.query)
+    fetch("https://api.giphy.com/v1/gifs/translate?api_key=vRvUFu9f8SrzzJWqp9b7aiIKTqKExxA2&s="+this.state.query)
     .then(response => {
         // console.log(response.status, response.statusCode)
         if (response.ok) {

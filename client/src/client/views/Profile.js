@@ -48,7 +48,7 @@ class Profile extends Component {
     /* Placeholder. Since we won't have a logged in user until next phase.
        Based on code from class */
     randomGifs() {
-        fetch("http://api.giphy.com/v1/gifs/trending?api_key=vRvUFu9f8SrzzJWqp9b7aiIKTqKExxA2&limit=5")
+        fetch("https://api.giphy.com/v1/gifs/trending?api_key=vRvUFu9f8SrzzJWqp9b7aiIKTqKExxA2&limit=5")
         .then(response => {
                 if (response.ok) {
                     return response.json()

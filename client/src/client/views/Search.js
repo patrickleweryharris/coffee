@@ -62,7 +62,7 @@ class Search extends Component {
   // Search for gifs using giphy api. Based on code from class
   doSearch(e) {
       e.preventDefault(); // prevents a refresh when function is called
-      fetch("http://api.giphy.com/v1/gifs/search?api_key=vRvUFu9f8SrzzJWqp9b7aiIKTqKExxA2&q="+this.state.query)
+      fetch("https://api.giphy.com/v1/gifs/search?api_key=vRvUFu9f8SrzzJWqp9b7aiIKTqKExxA2&q="+this.state.query)
       .then(response => {  ////
           // console.log(response.status, response.statusCode)
           if (response.ok) {
