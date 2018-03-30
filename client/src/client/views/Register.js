@@ -45,10 +45,26 @@ class Register extends Component {
         );
     }
 
-    // Doesn't do anything in Phase 2
+
     register(e){
-      e.preventDefault(); // Prevents auto page refresh
-      alert("Register");
+      e.preventDefault();
+      if (this.state.pw !== this.state.repeat){
+         alert("Passwords do not match");
+      }
+      else {
+        fetch('api/register/', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: this.state.username,
+            name: this.state.name,
+            password: this.state.pw
+          })
+        })
+      }
     }
 
     handleInputChange(event){

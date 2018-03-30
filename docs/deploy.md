@@ -11,6 +11,8 @@ $ heroku config:get MONGODB_URI
 ```
 $ cd client && npm run build
 $ git add .
-$ git commit -m 'test API endpoints'
+$ git commit -m 'your commit message'
 $ git push heroku master
 ```
+
+Any local changes should also be pushed to github using `git push origin master`

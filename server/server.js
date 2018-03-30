@@ -1,7 +1,9 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
+var mongoose = require('mongoose');
 var ObjectID = mongodb.ObjectID;
+var User = require('../db/user');
 
 //var CONTACTS_COLLECTION = "contacts";
 var USERS_COLLECTION = "users";
@@ -9,24 +11,19 @@ var USERS_COLLECTION = "users";
 var app = express();
 app.use(bodyParser.json());
 
-// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
-var db;
+mongoose.connect(process.env.MONGODB_URI);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
-// Connect to the database before starting the application server.
-mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/test", function (err, client) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
-
-  // Save database object from the callback for reuse.
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
   db = client.db();
   console.log("Database connection ready");
 
+  // Save database object from the callback for reuse.
   // Initialize the app.
   var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
@@ -60,23 +57,45 @@ app.get("/api/users", function(req, res) {
 
 app.post("/api/register", function(req, res) {
 
-  var newUser = req.body;
-
   if (!req.body.name) {
     handleError(res, "Invalid user input", "Must provide a name.", 400);
   }
+  if (req.body.email &&
+    req.body.name &&
+    req.body.password){
+      var newUser = {
+        email: req.body.email,
+        name: req.body.name,
+        password: req.body.password
+      }
 
-  db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to create new user.");
-    } else {
-      res.status(201).json(doc.ops[0]);
+      User.create(newUser, function (error, user) {
+        if (error) {
+          return next(error);
+        }
+        else {
+          req.session.userId = user._id;
+          return res.redirect('/profile'); // need to do something here
+        }
+      });
+
     }
-  });
+
+  // db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc) {
+  //   if (err) {
+  //     handleError(res, err.message, "Failed to create new user.");
+  //   } else {
+  //     res.status(201).json(doc.ops[0]);
+  //   }
+  // });
 
 });
 
 app.get("api/login", function(req, res){
+
+});
+
+app.get("api/logout", function(req, res){
 
 });
 
