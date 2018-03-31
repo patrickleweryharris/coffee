@@ -24,8 +24,13 @@ var userSchema = new mongoose.Schema({
 });
 
 // For login authentication
-userSchema.methods.validPassword = function(pwd) {
-  return bcrypt.compare(pwd, this.password);
+userSchema.methods.validPassword = function(pwd, callback) {
+  bcrypt.compare(pwd, this.password, function(err, res) {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, res);
+  });
 };
 
 // Store password securely.

@@ -84,7 +84,9 @@ class Register extends Component {
             window.location.reload();
             this.setState({ redirect: true });
           }
-          alert("User already exists");
+          else {
+            alert("User already exists");
+          }
         })
         .catch(error => console.log(error));
       }

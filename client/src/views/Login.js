@@ -65,13 +65,17 @@ class Login extends Component {
         if (response.ok) {
           localStorage.setItem("isLoggedIn", true);
           return response.json();
-        } else {
-          console.log("try again");
         }
+        return response.text();
       }).then(json => {
-        localStorage.setItem("uid", json);
-        window.location.reload();
-        this.setState({ redirect: true });
+        if(localStorage.getItem("isLoggedIn")){
+          localStorage.setItem("uid", json);
+          window.location.reload();
+          this.setState({ redirect: true });
+        }
+        else{
+          alert(json);
+        }
       })
       .catch(error => console.log(error));
     }

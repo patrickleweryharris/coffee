@@ -141,15 +141,27 @@ app.post("/api/register", function(req, res) {
    User.findOne({ email: req.body.email }, function(err, user) {
      if (err) {
        handleError(res, err, 'Database error', 500);
+       return 500;
       }
-     if (!user) {
+     if (user === null) {
        res.status(401).send('Incorrect username.');
-     }
-     if (!user.validPassword(req.body.password)) {
-       res.status(401).send('Incorrect password.');
+       return 401;
      }
      else{
-       res.status(200).send(user._id);
+       user.validPassword(req.body.password, function(err, match){
+         if (err){
+           console.log(err)
+         }
+         if (match){ // matching password
+           res.status(200).send(user._id);
+           return 200;
+         }
+         else {
+           res.status(401).send('Incorrect password.');
+           return 401;
+         }
+       });
+
      }
    });
  });
