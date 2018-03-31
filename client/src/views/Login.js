@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink} from "react-router-dom";
+import { NavLink, Redirect} from "react-router-dom";
 import '../style/Login.css';
 
 class Login extends Component {
@@ -9,13 +9,20 @@ class Login extends Component {
       this.state ={
         username: "",
         pw: "",
-        remember: false
+        remember: false,
+        redirect: false
       }
 
       this.logIn= this.logIn.bind(this);
       this.handleInputChange = this.handleInputChange.bind(this);
     }
     render(){
+      this.shouldRedir();
+      const { redirect } = this.state;
+      if (redirect) {
+       return <Redirect to='/'/>;
+      }
+      else{
         return (
             <div>
                 <h1>Log In</h1>
@@ -41,6 +48,7 @@ class Login extends Component {
                 </form>
             </div>
         );
+      }
     }
 
     // Logs the user in
@@ -59,17 +67,28 @@ class Login extends Component {
       })
       .then(response => {
         if (response.ok) {
-          alert('Logged In');
+          localStorage.setItem("isLoggedIn", true);
+          return response.json();
         } else {
-          throw new Error("Log in Failed");
+          console.log("try again");
         }
-      });
+      }).then(json => {
+        localStorage.setItem("uid", json);
+        this.setState({ redirect: true });
+      })
+      .catch(error => console.log(error));
     }
 
     // From the react docs
     handleInputChange(event){
       const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
       this.setState({[event.target.name]: value});
+    }
+
+    shouldRedir(){
+      if(localStorage.getItem("isLoggedIn")){
+        this.setState({ redirect: true });
+      }
     }
 }
 

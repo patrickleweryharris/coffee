@@ -4,25 +4,26 @@ var mongodb = require("mongodb");
 var mongoose = require('mongoose');
 var session = require('express-session');
 var bcrypt = require('bcrypt');
-var passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
 var MongoStore = require('connect-mongo')(session);
 var ObjectID = mongodb.ObjectID;
 var User = require('../db/user');
 
 var app = express();
 app.use(bodyParser.json());
-app.use(session({
-  secret: 'gifs are cool'
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(bodyParser.urlencoded({ extended: false }));
+
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://heroku_7ktv9vft:811ufk5iq4as8u5peplshtm31d@ds119489.mlab.com:19489/heroku_7ktv9vft');
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
+
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -36,32 +37,6 @@ db.once('open', function() {
     console.log("App now running on port", port);
   });
 });
-
-// Authentication with passport
-// From passport docs http://www.passportjs.org/docs/
-passport.use(new LocalStrategy(
-  function(email, password, done) {
-    console.log(email, password);
-    User.findOne({ email: email }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect email.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
-
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-})
 
 // API Endpoints
 
@@ -169,23 +144,27 @@ app.post("/api/register", function(req, res) {
 
 /*  "/api/login"
  *    POST: Login an existing user
- *    From the Passport docs http://www.passportjs.org/docs/
  */
  app.post('/api/login', function(req, res, next) {
-   passport.authenticate('local', function(err, user, info) {
-     if (err) { return next(err); }
+   User.findOne({ email: req.body.email }, function(err, user) {
+     if (err) {
+       handleError(res, err, 'Database error', 500);
+      }
      if (!user) {
-       res.sendStatus(400)
+       res.status(401).send('Incorrect username.');
      }
-     req.logIn(user, function(err) {
-       if (err) { return next(err); }
-       res.sendStatus(200)
-     });
-   })(req, res, next);
+     if (!user.validPassword(req.body.password)) {
+       res.status(401).send('Incorrect password.');
+     }
+     else{
+       res.status(200).send(user._id);
+     }
+   });
  });
 
 /*  "/api/logout"
  *    POST: Logout currently logged in user
+ *    FIXME may not be nessecary
  */
 app.get("/api/logout", function(req, res){
   req.session.destroy(function(err) {

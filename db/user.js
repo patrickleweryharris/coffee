@@ -24,6 +24,10 @@ var userSchema = new mongoose.Schema({
 
 });
 
+userSchema.methods.validPassword = function(pwd) {
+  return bcrypt.compare(pwd, this.password);
+};
+
 // Store password securely.
 // From https://medium.com/of-all-things-tech-progress/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359
 userSchema.pre('save', function (next) {

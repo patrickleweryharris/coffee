@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink} from "react-router-dom";
+import { NavLink, Redirect} from "react-router-dom";
 import '../style/Login.css';
 
 class Register extends Component {
@@ -10,13 +10,18 @@ class Register extends Component {
         name: "",
         username: "",
         pw: "",
-        repeat: ""
+        repeat: "",
+        redirect: false
       }
 
       this.register = this.register.bind(this);
       this.handleInputChange = this.handleInputChange.bind(this);
     }
     render(){
+        const { redirect } = this.state;
+        if (redirect) {
+          return <Redirect to='/'/>;
+        }
         return (
             <div>
                 <h1>Register</h1>
@@ -66,8 +71,9 @@ class Register extends Component {
         })
         .then(response => {
           if (response.ok) {
-            // TODO THIS SHOULD REDIECT TO PROFILE PAGE
-            alert('Registered');
+            if (response.ok) {
+              this.setState({ redirect: true });
+            }
           } else {
             throw new Error("Registration Failed");
           }
