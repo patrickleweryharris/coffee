@@ -88,11 +88,11 @@ is included in the search result for a second before disappearing.
   - [x] Login (once user is logged in, the sign in button should be replaced with 'log out')
   - [ ] Profile page (needs to link to change password, delete gif, display gifs/user info, and delete account)
   - [ ] Share (needs to link to add gif). Share page needs a button for saving, as well
-- [ ] Documentation
+- [x] Documentation
   - [x] deploy.md
   - [x] api.md
-  - [ ] solutions.md
-  - [ ] instructions.md
+  - [x] solutions.md
+  - [x] instructions.md
   - [x] attribution.md
 
 ## Extras
