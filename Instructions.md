@@ -22,7 +22,7 @@ Source code for the header and footer is located in [client/src/App.js](/client/
 where views are swapped into based on user input. CSS style for all views is located in [/client/src/style](/client/src/style).
 
 Server side code is located in [/server/server.js](/server/server.js). API endpoints are
-defined in [API.md](/docs/api.md)
+defined in [docs/api.md](/docs/api.md)
 
 ## Using Coffee
 

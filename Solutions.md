@@ -22,7 +22,7 @@ Source code for the header and footer is located in [client/src/App.js](/client/
 where views are swapped into based on user input. CSS style for all views is located in [/client/src/style](/client/src/style).
 
 Server side code is located in [/server/server.js](/server/server.js). API endpoints are
-defined in [API.md](/docs/api.md). 
+defined in [docs/api.md](/docs/api.md).
 
 ## Using Coffee
 
@@ -49,7 +49,7 @@ to share the gif on Facebook or Twitter. If a user is logged in, they can save g
 ### Profile
 
 The `Profile` view displays the saved gifs of a logged in user, as well as offering links to change
-their user information (password, email, name).
+their user information (password, email, name). Users can also unsave gifs from this view.
 It can be accessed from the nav-bar. If a user is not logged in, this view redirects to the login page
 
 ### Log-in and Register

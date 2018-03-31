@@ -9,6 +9,7 @@ var User = require('../db/user');
 var app = express();
 app.use(bodyParser.json());
 
+/* See docs/api.md for detailed method descriptions and return values */
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://heroku_7ktv9vft:811ufk5iq4as8u5peplshtm31d@ds119489.mlab.com:19489/heroku_7ktv9vft');
 if (process.env.NODE_ENV === 'production') {
