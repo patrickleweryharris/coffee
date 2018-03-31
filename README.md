@@ -5,9 +5,9 @@
 ## Table of Contents
 - [Install](#install)
 - [Usage](#usage)
-- [Deployment](#deploy)
+- [API](#api)
+- [Deployment](#deployment)
 - [Known Bugs](#bugs)
-- [Endpoints](#endpoints)
 - [Database Schema](#schema)
 
 ## Install
@@ -43,7 +43,11 @@ users cannot log in, save gifs, etc...
 
 Please see [Solutions.md](/Solutions.md) for detailed usage instructions.
 
-## Deploy
+## API
+
+See [docs/api.md](/docs/api.md)
+
+## Deployment
 
 See [docs/deploy.md](/docs/deploy.md)
 
@@ -52,10 +56,6 @@ See [docs/deploy.md](/docs/deploy.md)
 
 1. Sometimes when searching/translating, the state change lags and the default search image
 is included in the search result for a second before disappearing.
-
-## Endpoints
-
-See [docs/api.md](/docs/api.md)
 
 ## Schema
 
@@ -71,9 +71,8 @@ See [docs/api.md](/docs/api.md)
 
 ## To Do List
 - [x] Database  
-- [ ] API endpoints  
-    - [ ] login (post)  
-    - [ ] logout (get)  
+- [x] API endpoints  
+    - [x] login (post)  
     - [x] register (post)  
     - [x] save gif (put)  
     - [x] delete saved gif (delete)  
@@ -84,14 +83,14 @@ See [docs/api.md](/docs/api.md)
     - [x] Name change (put)
     - [x] Show all users (get)
 - [ ] Connect to react ui
-  - [ ] Session storage
+  - [x] Session storage
   - [x] Register (once user is logged in, the sign in button should be replaced with 'logged out')
-  - [ ] Login (once user is logged in, the sign in button should be replaced with 'logged out')
+  - [x] Login (once user is logged in, the sign in button should be replaced with 'logged out')
   - [ ] Profile page (needs to link to change password, delete gif, display gifs/user info, and delete account)
   - [ ] Share (needs to link to add gif). Share page needs a button for saving, as well
 - [ ] Documentation
   - [x] deploy.md
-  - [ ] api.md (mostly done except for `api/login`)
+  - [x] api.md 
   - [ ] solutions.md
   - [ ] instructions.md
   - [x] attribution.md
