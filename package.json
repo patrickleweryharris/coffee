@@ -23,8 +23,8 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "build": "cd client && npm run build",
     "server": "node server/server.js",
-    "client": "node start-client.js",
-    "deploy": "./deploy.sh" 
+    "client": "node scripts/start-client.js",
+    "deploy": "./scripts/deploy.sh 'Updated' "
   },
   "repository": {
     "type": "git",

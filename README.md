@@ -1,5 +1,7 @@
 # Coffee Gif Browser
 
+## Live [here](https://mysterious-crag-44463.herokuapp.com/#/)
+
 ## Table of Contents
 - [Install](#install)
 - [Usage](#usage)
@@ -18,6 +20,8 @@ $ npm install
 
 ## Usage
 
+The app is live [here](https://mysterious-crag-44463.herokuapp.com/#/)
+
 To locally run the client and server, do:
 ```
 $ npm start
@@ -31,11 +35,11 @@ $ npm run server
 Requests can now be sent to `localhost:8080/api`
 
 To run just the client, do:
-
 ```
 $ npm run client
 ```
-The client will now run at `localhost:3000/`
+The client will now run at `localhost:3000/`. Note that if the server is not running
+users cannot log in, save gifs, etc...
 
 Please see [Solutions.md](/Solutions.md) for detailed usage instructions.
 
@@ -90,6 +94,7 @@ See [docs/api.md](/docs/api.md)
   - [ ] api.md (mostly done except for `api/login`)
   - [ ] solutions.md
   - [ ] instructions.md
+  - [x] attribution.md
 
 ## Extras
 

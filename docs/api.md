@@ -1,17 +1,21 @@
 ## API Endpoints
 
-### api/users
+Host:
+- https://mysterious-crag-44463.herokuapp.com (if running the production build)
+- `localhost:8080` (if running locally)  
+
+### - api/users
 
 Methods:
-#### GET:
+#### - GET:
   - Path: `/api/users`  
   - Description: Shows all users of the application  
-#### DELETE:  
+#### - DELETE:  
   - Path: `api/users/:id`  
   - Description: Deletes a user given by id   
   - Parameters:  
     - `id`: A user's unique identifier
-#### PUT:
+#### - PUT:
   - Path: `/api/users/:id/:variable`
   - Description: Update a given user's password, name, or email  
   - Parameters:  
@@ -20,9 +24,9 @@ Methods:
   - Required Data:
     - `updater`: New value of password, name, or email
 
-### /api/register
+### - /api/register
 Methods:
-#### POST
+#### - POST
   - Path: `/api/register`
   - Description: Registers a new user
   - Required Data:
@@ -30,26 +34,26 @@ Methods:
     - `email`: User's email
     - `password`: User's password
 
-### /api/login
+### - /api/login
 TODO
 
-### /api/logout
+### - /api/logout
 Methods
 
-#### POST
+#### - POST
   - Path: `api/logout`
   - Description: Logout a logged in user
 
-### /api/gifs
+### - /api/gifs
 Methods:
 
-#### GET
+#### - GET
   - Path: `/api/gifs/:id`
   - Description: Show gifs saved by a given user
   - Parameters:  
     - `id`: A user's unique identifier
 
-#### PUT
+#### - PUT
   - Path: `/api/gifs/:id`
   - Description: Add a new gif to a user's private collection
   - Parameters:  
@@ -57,7 +61,7 @@ Methods:
   - Required Data:
     - `gif`: ID of new gif to add
 
-#### DELETE
+#### - DELETE
   - Path: `/api/gifs/:id`
   - Description: Remove a gif from a user's private collection
   - Parameters:  
