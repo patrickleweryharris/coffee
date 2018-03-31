@@ -187,7 +187,7 @@ app.get("/api/gifs/:id", function(req, res) {
 app.put("/api/gifs/:id", function(req, res) {
   if (req.body.gif){
     // Push new gif to gifs array
-    User.findByIdAndUpdate(req.params.id, {"$push": {gifs: req.body.gif}}, function(err, users){
+    User.findByIdAndUpdate(req.params.id, {"$addToSet": {gifs: req.body.gif}}, function(err, users){
       if(err){
         handleError(res, err.message, "Failed to update gif list", 500);
       }
