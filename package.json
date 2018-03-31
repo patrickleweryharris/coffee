@@ -24,7 +24,7 @@
     "build": "cd client && npm run build",
     "server": "node server/server.js",
     "client": "node scripts/start-client.js",
-    "deploy": "./scripts/deploy.sh 'Updated' "
+    "deploy": "./scripts/deploy.sh 'Updated'"
   },
   "repository": {
     "type": "git",
