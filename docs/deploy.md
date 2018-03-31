@@ -18,3 +18,9 @@ $ git push heroku master
 ```
 
 Any local changes should also be pushed to github using `git push origin master`
+
+Or, if you want to do all these things:
+
+```
+$ npm run deploy
+```

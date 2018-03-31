@@ -23,7 +23,8 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "build": "cd client && npm run build",
     "server": "node server/server.js",
-    "client": "node start-client.js"
+    "client": "node start-client.js",
+    "deploy": "npm run build && git add . && git commit -m 'your commit message' && git push heroku master && git push origin master" 
   },
   "repository": {
     "type": "git",
