@@ -1,11 +1,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
-// Based on this tutorial:
-// https://medium.com/of-all-things-tech-progress/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359
-
-// Schema for our database
-var UserSchema = new mongoose.Schema({
+// Schema for our database. Based on code from class and mongo docs
+var userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -29,7 +26,7 @@ var UserSchema = new mongoose.Schema({
 
 // Store password securely.
 // From https://medium.com/of-all-things-tech-progress/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359
-UserSchema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
   var user = this;
   bcrypt.hash(user.password, 10, function (err, hash){
     if (err) {
@@ -40,5 +37,4 @@ UserSchema.pre('save', function (next) {
   });
 });
 
-var User = mongoose.model('User', UserSchema);
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);

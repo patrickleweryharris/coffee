@@ -71,7 +71,7 @@ class Register extends Component {
           } else {
             throw new Error("Registration Failed");
           }
-        })
+        });
       }
     }
 

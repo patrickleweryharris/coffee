@@ -12,10 +12,13 @@ Creating this would not have been possible without the following awesome tutoria
 
 - [Deploying node.js apps on Heroku](https://devcenter.heroku.com/articles/deploying-nodejs#provision-a-database)
 
-- [React Tutorial from class](http://www.teach.cs.toronto.edu/~csc309h/winter/lectures/karen/w6/notes.html)
+- [React Example from class](http://www.teach.cs.toronto.edu/~csc309h/winter/lectures/karen/w6/notes.html)
 
+- [Mongoose Documentation](http://mongoosejs.com/docs/guide)
+
+- [MongoDB Example from class](https://github.com/csc309-18s/examples/tree/master/w9/courses)
 ### Images
 
-These images were used under a CC by Attribution License: 
+These images were used under a CC by Attribution License:
 
 - ["Coffee"](https://thenounproject.com/search/?q=coffee&creator=37017&i=43989) icon by artworkbean from the [Noun Project](https://thenounproject.com)

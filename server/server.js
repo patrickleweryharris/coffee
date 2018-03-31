@@ -4,12 +4,20 @@ var mongodb = require("mongodb");
 var mongoose = require('mongoose');
 var session = require('express-session');
 var bcrypt = require('bcrypt');
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
 var MongoStore = require('connect-mongo')(session);
 var ObjectID = mongodb.ObjectID;
 var User = require('../db/user');
 
 var app = express();
 app.use(bodyParser.json());
+app.use(session({
+  secret: 'gifs are cool'
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://heroku_7ktv9vft:811ufk5iq4as8u5peplshtm31d@ds119489.mlab.com:19489/heroku_7ktv9vft');
 if (process.env.NODE_ENV === 'production') {
@@ -29,16 +37,31 @@ db.once('open', function() {
   });
 });
 
-// Session storage
+// Authentication with passport
+// From passport docs http://www.passportjs.org/docs/
+passport.use(new LocalStrategy(
+  function(email, password, done) {
+    console.log(email, password);
+    User.findOne({ email: email }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect email.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
-app.use(session({
-  secret: 'gifs are cool',
-  resave: true,
-  saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection: db
-  })
-}));
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+})
 
 // API Endpoints
 
@@ -121,10 +144,8 @@ app.delete("/api/users/:id", function(req, res) {
 
 /*  "/api/register"
  *    POST: creates a new user
- *    Based on this tutorial:
- *    https://medium.com/of-all-things-tech-progress/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359
  */
-app.post("/api/register", function(req, res, next) {
+app.post("/api/register", function(req, res) {
   if (req.body.email &&
     req.body.name &&
     req.body.password){
@@ -148,15 +169,25 @@ app.post("/api/register", function(req, res, next) {
 
 /*  "/api/login"
  *    POST: Login an existing user
+ *    From the Passport docs http://www.passportjs.org/docs/
  */
-app.get("api/login", function(req, res, next){
-  // TODO
-});
+ app.post('/api/login', function(req, res, next) {
+   passport.authenticate('local', function(err, user, info) {
+     if (err) { return next(err); }
+     if (!user) {
+       res.sendStatus(400)
+     }
+     req.logIn(user, function(err) {
+       if (err) { return next(err); }
+       res.sendStatus(200)
+     });
+   })(req, res, next);
+ });
 
 /*  "/api/logout"
  *    POST: Logout currently logged in user
  */
-app.get("api/logout", function(req, res, next){
+app.get("/api/logout", function(req, res){
   req.session.destroy(function(err) {
       if(err) {
         handleError(res, err.message, "Failed to log out", 500);

@@ -43,10 +43,27 @@ class Login extends Component {
         );
     }
 
-    // Doesn't do anything in Phase 2
+    // Logs the user in
     logIn(e){
       e.preventDefault(); // Prevents auto page refresh
-      alert("Logged In");
+      fetch('api/login/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: this.state.username,
+          password: this.state.pw
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Logged In');
+        } else {
+          throw new Error("Log in Failed");
+        }
+      });
     }
 
     // From the react docs
