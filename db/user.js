@@ -21,9 +21,9 @@ var userSchema = new mongoose.Schema({
   gifs: {
     type: Array
   }
-
 });
 
+// For login authentication
 userSchema.methods.validPassword = function(pwd) {
   return bcrypt.compare(pwd, this.password);
 };

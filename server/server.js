@@ -2,9 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var mongoose = require('mongoose');
-var session = require('express-session');
 var bcrypt = require('bcrypt');
-var MongoStore = require('connect-mongo')(session);
 var ObjectID = mongodb.ObjectID;
 var User = require('../db/user');
 
@@ -16,14 +14,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://heroku_7ktv9vft:811ufk5iq
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
-
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}));
-
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -43,7 +33,7 @@ db.once('open', function() {
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
-  res.status(code || 500).json({"error": message});
+  res.status(code || 500).send({"error": message});
 }
 
 /*  "/api/users"
@@ -106,6 +96,7 @@ app.put("/api/users/:id/:variable", function(req, res, next){
   }
 });
 
+// Delete a user
 app.delete("/api/users/:id", function(req, res) {
     User.findByIdAndRemove(req.params.id, function(error, users){
       if (error){
@@ -132,7 +123,8 @@ app.post("/api/register", function(req, res) {
 
       User.create(newUser, function (error, user) {
         if (error) {
-          handleError(res, error, "Failed to create databased entry", 500)
+          console.log(error);
+          res.status(500).send("User already exists");
         }
         else {
           res.status(200).send(user._id);
@@ -161,21 +153,6 @@ app.post("/api/register", function(req, res) {
    });
  });
 
-/*  "/api/logout"
- *    POST: Logout currently logged in user
- *    FIXME may not be nessecary
- */
-app.get("/api/logout", function(req, res){
-  req.session.destroy(function(err) {
-      if(err) {
-        handleError(res, err.message, "Failed to log out", 500);
-      } else {
-        res.status(200).send("Logged Out");
-      }
-    });
-});
-
-
 /* "/api/gifs/:id"
  *    GET: show saved gifs given user id
  *    PUT: save a given gif to a user's account
@@ -192,6 +169,7 @@ app.get("/api/gifs/:id", function(req, res) {
   });
 });
 
+// Save a new gif
 app.put("/api/gifs/:id", function(req, res) {
   if (req.body.gif){
     // Push new gif to gifs array
@@ -209,6 +187,7 @@ app.put("/api/gifs/:id", function(req, res) {
   }
   });
 
+// Remove a saved gif
 app.delete("/api/gifs/:id", function(req, res) {
   if (req.body.gif){
     // Pull gif from gifs array

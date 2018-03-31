@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink} from "react-router-dom";
+import { NavLink, Redirect} from "react-router-dom";
 
 class Profile extends Component {
     constructor(props) {
@@ -14,10 +14,15 @@ class Profile extends Component {
 
     componentDidMount(){
       window.scrollTo(0, 0);
-      this.randomGifs();
+      if(localStorage.getItem("isLoggedIn")){
+        this.randomGifs();
+      }
     }
 
     render () {
+      if(!localStorage.getItem("isLoggedIn")){ // If user is not logged in, they can't view their profile
+        return <Redirect to='/login'/>;
+      }
       var renderedGifs = this.state.gifs.map(function (gif, i){
           return (
             <NavLink to={'/share?gif='+ gif} key={i} className="gifLink">

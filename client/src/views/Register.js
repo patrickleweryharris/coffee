@@ -76,11 +76,15 @@ class Register extends Component {
           }
           else {
             console.log("Registration Failed");
+            return("Registration Error");
           }
         }).then(json => {
-          localStorage.setItem("uid", json);
-          window.location.reload();
-          this.setState({ redirect: true });
+          if (localStorage.getItem("isLoggedIn")){
+            localStorage.setItem("uid", json);
+            window.location.reload();
+            this.setState({ redirect: true });
+          }
+          alert("User already exists");
         })
         .catch(error => console.log(error));
       }

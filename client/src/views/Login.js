@@ -35,10 +35,6 @@ class Login extends Component {
                   <br />
                   <input type="submit" placeholder="Log In" name="submit" className="loginButton"/>
                   <br />
-                  <label>
-                    <input type="checkbox" checked={this.state.remember} name="remember"
-                    onChange={this.handleInputChange}/> Remember me
-                  </label>
                   <div>
                       <p> No account? <NavLink to="/register" className="pwHelp">Sign up here</NavLink></p>
                       <div className="forget">
