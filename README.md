@@ -13,8 +13,8 @@
 ## Install
 
 ```
-$ git clone https://github.com/csc309-18s/assignment-2-coffee.git
-$ cd assignment-2-coffee
+$ git clone https://github.com/csc309-18s/assignment-3-coffee.git
+$ cd assignment-3-coffee
 $ npm install
 ```
 
@@ -39,7 +39,7 @@ To run just the client, do:
 $ npm run client
 ```
 The client will now run at `localhost:3000/`. Note that if the server is not running
-users cannot log in, save gifs, etc...
+users cannot log in, save gifs, etc. Fatal errors may occur as calls to `/api` cannot be made
 
 Please see [Solutions.md](/Solutions.md) for detailed usage instructions.
 
@@ -84,15 +84,15 @@ is included in the search result for a second before disappearing.
     - [x] Show all users (get)
 - [ ] Connect to react ui
   - [x] Session storage
-  - [x] Register (once user is logged in, the sign in button should be replaced with 'logged out')
-  - [x] Login (once user is logged in, the sign in button should be replaced with 'logged out')
+  - [x] Register (once user is logged in, the sign in button should be replaced with 'log out')
+  - [x] Login (once user is logged in, the sign in button should be replaced with 'log out')
   - [ ] Profile page (needs to link to change password, delete gif, display gifs/user info, and delete account)
   - [ ] Share (needs to link to add gif). Share page needs a button for saving, as well
-- [ ] Documentation
+- [x] Documentation
   - [x] deploy.md
-  - [x] api.md 
-  - [ ] solutions.md
-  - [ ] instructions.md
+  - [x] api.md
+  - [x] solutions.md
+  - [x] instructions.md
   - [x] attribution.md
 
 ## Extras

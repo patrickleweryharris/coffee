@@ -13,7 +13,7 @@ If you need to access the db locally
 ```
 $ npm run build
 $ git add .
-$ git commit -m 'your commit message'
+$ git commit -m "Your commit message"
 $ git push heroku master
 ```
 
@@ -22,5 +22,5 @@ Any local changes should also be pushed to github using `git push origin master`
 Or, if you want to do all these things:
 
 ```
-$ npm run deploy
+$ ./scripts/deploy.sh "Your commit message"
 ```
