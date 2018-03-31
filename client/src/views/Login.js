@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavLink, Redirect} from "react-router-dom";
+import { withAlert } from 'react-alert';
 import '../style/Login.css';
 
 class Login extends Component {
@@ -74,7 +75,7 @@ class Login extends Component {
           this.setState({ redirect: true });
         }
         else{
-          alert(json);
+          this.props.alert.show(json, {timeout: 3000, type: 'error'});
         }
       })
       .catch(error => console.log(error));
@@ -93,4 +94,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withAlert(Login);

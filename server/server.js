@@ -145,7 +145,7 @@ app.post("/api/register", function(req, res) {
        return 500;
       }
      if (user === null) {
-       res.status(401).send('Incorrect username.');
+       res.status(401).send('Incorrect username / password.');
        return 401;
      }
      else{
@@ -158,7 +158,7 @@ app.post("/api/register", function(req, res) {
            return 200;
          }
          else {
-           res.status(401).send('Incorrect password.');
+           res.status(401).send('Incorrect username / password.');
            return 401;
          }
        });

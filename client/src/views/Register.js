@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavLink, Redirect} from "react-router-dom";
+import { withAlert } from 'react-alert';
 import '../style/Login.css';
 
 class Register extends Component {
@@ -54,7 +55,7 @@ class Register extends Component {
     register(e){
       e.preventDefault();
       if (this.state.pw !== this.state.repeat){
-         alert("Passwords do not match");
+        this.props.alert.show("Passwords do not match", {timeout: 3000, type: 'error'});
       }
       else {
         fetch('api/register/', {
@@ -85,7 +86,7 @@ class Register extends Component {
             this.setState({ redirect: true });
           }
           else {
-            alert("User already exists");
+            this.props.alert.show("User already exists", {timeout: 3000, type: 'error'});
           }
         })
         .catch(error => console.log(error));
@@ -98,4 +99,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default withAlert(Register);

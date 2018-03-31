@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Route, NavLink, HashRouter} from "react-router-dom";
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
 import logo from './images/logo.svg';
 import pwg from './images/pwg.png';
 import './style/App.css';
@@ -17,6 +19,7 @@ import Share from "./views/Share"
 class App extends Component {
   render() {
     return (
+      <AlertProvider template={AlertTemplate}>
       <HashRouter>
         <div className="App">
         <header className="App-header">
@@ -52,6 +55,7 @@ class App extends Component {
           </footer>
         </div>
       </HashRouter>
+      </AlertProvider>
     );
   }
 

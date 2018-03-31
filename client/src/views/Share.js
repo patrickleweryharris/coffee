@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withAlert } from 'react-alert';
 import twitter from '../images/sharing/twitter.svg';
 import facebook from '../images/sharing/facebook.svg';
 import giphy from '../images/sharing/giphy.png';
@@ -66,7 +67,7 @@ class Share extends Component {
           })
       }).then(response => {
             if (response.ok) {
-                window.alert("Selected gif has been saved.");
+                this.props.alert.show("Selected gif has been saved.", {timeout: 3000, type: 'success'});
                 return JSON.stringify({result:"successfully saved"});
             }
             else {
@@ -77,12 +78,10 @@ class Share extends Component {
 
       // Redirect to login page if not logged in
     } else {
-
-      window.alert("Please log in first to save.");
-      window.location.href = "/#/login";
+      this.props.alert.show("Please log in first to save.", {timeout: 3000, type: 'error'});
     }
   }
 
 }
 
-export default Share;
+export default withAlert(Share);
