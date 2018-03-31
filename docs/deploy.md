@@ -24,3 +24,10 @@ Or, if you want to do all these things:
 ```
 $ ./scripts/deploy.sh "Your commit message"
 ```
+
+In order to deploy you must be logged in to Heroku
+
+To login, do:
+```
+$ heroku login
+```

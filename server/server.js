@@ -137,6 +137,7 @@ app.post("/api/register", function(req, res) {
 /*  "/api/login"
  *    POST: Login an existing user
  */
+ // Returns user id which can be used for other requests
  app.post('/api/login', function(req, res, next) {
    User.findOne({ email: req.body.email }, function(err, user) {
      if (err) {

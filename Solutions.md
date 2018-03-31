@@ -24,6 +24,14 @@ where views are swapped into based on user input. CSS style for all views is loc
 Server side code is located in [/server/server.js](/server/server.js). API endpoints are
 defined in [docs/api.md](/docs/api.md).
 
+## Authentication
+
+Logins are facilitated by a `POST` request to the the `api/login` endpoint (see [docs/api.md](/docs/api.md)).
+Passwords are hashed via `bcrypt` and checked against the password in the database.
+Upon a successful login, two items are saved in localStorage. `isLoggedIn` is a boolean
+which denotes whether or not a user is logged in. `uid` is a string which contains a logged in user's
+unique identifier, which is used for facilitating saving and profile requests. 
+
 ## Using Coffee
 
 Our app has seven views: `Trending`, `Search`, `Translate`, `Share`, `Profile`, `Log In`, and `Register`. Most of these can be accessed through
@@ -44,7 +52,9 @@ they are directed to the `Share` view.
 
 Users can arrive on the `Share` view by clicking a gif in any other view.
 The gif they clicked is displayed, along with links
-to share the gif on Facebook or Twitter. If a user is logged in, they can save gifs to their profile from this view.
+to share the gif on Facebook or Twitter.
+If a user is logged in, they can save gifs to their profile from this view by
+pressing the coffee button.
 
 ### Profile
 
@@ -55,7 +65,8 @@ It can be accessed from the nav-bar. If a user is not logged in, this view redir
 ### Log-in and Register
 
 The `Log In` view is where a user logs in to our application. It can be accessed by clicking the link in the top right of the screen. The `Register` views is accessible from the
-`Log In` view. `Register` allows a new user to register for an account.
+`Log In` view. `Register` allows a new user to register for an account. New accounts are added
+to the database with an initially empty list of saved gifs. Passwords are hashed via `bcrypt` and saved.
 
 Once a user is logged in or registered, they are redirected to the main page and their logged in status
 is saved in session storage. The profile page and save gif links will become available. The `Log In` link at the top

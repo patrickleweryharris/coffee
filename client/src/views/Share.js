@@ -5,8 +5,6 @@ import giphy from '../images/sharing/giphy.png';
 import saveCoffee from '../images/logo.svg';
 import '../style/Share.css'
 
-//session_start();
-
 class Share extends Component {
   constructor(props) {
     super(props);
@@ -36,9 +34,8 @@ class Share extends Component {
         <a href={this.state.gif} target="_blank">
           <img src={giphy} alt="Share button not found" className="shareButton"/>
         </a>
-        <a onClick={this.save}>
+        <a onClick={this.save} href='/'>
           <img src={saveCoffee} alt="Save button not found" className="shareButton" />
-
         </a>
       </div>
     );
@@ -53,11 +50,11 @@ class Share extends Component {
   save(e) {
 
     e.preventDefault();
-   
+
     if (localStorage.getItem("isLoggedIn")){
 
       console.log("type is " + typeof(localStorage.getItem("uid"))+ " and uid is " + localStorage.getItem("uid"));
-      
+
       fetch('/api/gifs/'+ localStorage.getItem("uid"), {
           method: 'PUT',
           headers: {
@@ -78,15 +75,14 @@ class Share extends Component {
             }
       })
 
-      //redirect to login page
+      // Redirect to login page if not logged in
     } else {
-      
+
       window.alert("Please log in first to save.");
-      window.location.href = "/#/login"; 
+      window.location.href = "/#/login";
     }
   }
 
 }
 
 export default Share;
-

@@ -6,6 +6,7 @@
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
+- [Authentication](#authentication)
 - [Deployment](#deployment)
 - [Known Bugs](#bugs)
 - [Database Schema](#schema)
@@ -46,6 +47,14 @@ Please see [Solutions.md](/Solutions.md) for detailed usage instructions.
 ## API
 
 See [docs/api.md](/docs/api.md)
+
+## Authentication
+
+Logins are facilitated by a `POST` request to the the `api/login` endpoint (see [docs/api.md](/docs/api.md)).
+Passwords are hashed via `bcrypt` and checked against the password in the database.
+Upon a successful login, two items are saved in localStorage. `isLoggedIn` is a boolean
+which denotes whether or not a user is logged in. `uid` is a string which contains a logged in user's
+unique identifier, which is used for facilitating saving and profile requests. 
 
 ## Deployment
 
