@@ -27,7 +27,7 @@ class App extends Component {
                   <li><NavLink to="/search">Search</NavLink></li>
                   <li><NavLink to="/translate">Translate</NavLink></li>
                   <li><NavLink to="/profile">Profile</NavLink></li>
-                  <li className="rightHand"><NavLink to="/login">Log In</NavLink></li>
+                  <li className="rightHand"><NavLink to="/login" onClick={this.logOut}>Log {this.getStatus()}</NavLink></li>
                 </ul>
           </header>
           <div className="content">
@@ -53,6 +53,22 @@ class App extends Component {
         </div>
       </HashRouter>
     );
+  }
+
+  getStatus(){
+    if(localStorage.getItem("isLoggedIn")){
+      return 'Out';
+    }
+    else {
+      return 'In';
+    }
+  }
+  logOut(){
+    if(localStorage.getItem("isLoggedIn")){
+      localStorage.removeItem("uid");
+      localStorage.removeItem("isLoggedIn");
+      window.location.reload();
+    }
   }
 }
 

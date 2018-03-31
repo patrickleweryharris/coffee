@@ -135,8 +135,7 @@ app.post("/api/register", function(req, res) {
           handleError(res, error, "Failed to create databased entry", 500)
         }
         else {
-          res.status(200).send("User registered");
-          req.session.userId = user._id;
+          res.status(200).send(user._id);
         }
       });
     }

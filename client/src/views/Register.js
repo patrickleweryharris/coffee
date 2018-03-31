@@ -19,7 +19,7 @@ class Register extends Component {
     }
     render(){
         const { redirect } = this.state;
-        if (redirect) {
+        if (redirect || localStorage.getItem("isLoggedIn") ){
           return <Redirect to='/'/>;
         }
         return (
@@ -71,13 +71,18 @@ class Register extends Component {
         })
         .then(response => {
           if (response.ok) {
-            if (response.ok) {
-              this.setState({ redirect: true });
-            }
-          } else {
-            throw new Error("Registration Failed");
+            localStorage.setItem("isLoggedIn", true);
+            return response.json();
           }
-        });
+          else {
+            console.log("Registration Failed");
+          }
+        }).then(json => {
+          localStorage.setItem("uid", json);
+          window.location.reload();
+          this.setState({ redirect: true });
+        })
+        .catch(error => console.log(error));
       }
     }
 

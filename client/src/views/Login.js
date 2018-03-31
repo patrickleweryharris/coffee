@@ -74,6 +74,7 @@ class Login extends Component {
         }
       }).then(json => {
         localStorage.setItem("uid", json);
+        window.location.reload();
         this.setState({ redirect: true });
       })
       .catch(error => console.log(error));
