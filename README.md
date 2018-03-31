@@ -16,10 +16,7 @@
 $ git clone https://github.com/csc309-18s/assignment-3-coffee.git
 $ cd assignment-3-coffee
 $ npm install
-$ cd client && npm install && cd ..
 ```
-
-Client and server have different dependencies, so two separate installs are required
 
 ## Usage
 
