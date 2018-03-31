@@ -1,5 +1,7 @@
 # Coffee Gif Browser
 
+[![Heroku](http://heroku-badge.herokuapp.com/?app=mysterious-crag-44463&style=flat&svg=1&root=index.html)]
+
 ## Live [here](https://mysterious-crag-44463.herokuapp.com/#/)
 
 ## Table of Contents
@@ -54,7 +56,7 @@ Logins are facilitated by a `POST` request to the the `api/login` endpoint (see 
 Passwords are hashed via `bcrypt` and checked against the password in the database.
 Upon a successful login, two items are saved in localStorage. `isLoggedIn` is a boolean
 which denotes whether or not a user is logged in. `uid` is a string which contains a logged in user's
-unique identifier, which is used for facilitating saving and profile requests. 
+unique identifier, which is used for facilitating saving and profile requests.
 
 ## Deployment
 
@@ -96,7 +98,7 @@ is included in the search result for a second before disappearing.
   - [x] Register (once user is logged in, the sign in button should be replaced with 'log out')
   - [x] Login (once user is logged in, the sign in button should be replaced with 'log out')
   - [ ] Profile page (needs to link to change password, delete gif, display gifs/user info, and delete account)
-  - [ ] Share (needs to link to add gif). Share page needs a button for saving, as well
+  - [x] Share (needs to link to add gif). Share page needs a button for saving, as well
 - [x] Documentation
   - [x] deploy.md
   - [x] api.md
