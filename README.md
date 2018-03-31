@@ -28,7 +28,7 @@ To run just the server, do:
 ```
 $ npm run server
 ```
-Request can now be sent to `localhost:3001/api`
+Requests can now be sent to `localhost:8080/api`
 
 To run just the client, do:
 
@@ -56,28 +56,40 @@ See [docs/api.md](/docs/api.md)
 ## Schema
 
 ```
-
 {
-  "id": <ObjectId>,
+  "_id": <ObjectId>,
   "name": <string>,
-  "pw" : <encrypted????>,
+  "password" : <hashed string>,
   "email": <string>,
   "gifs": []
 }
-
 ```
 
 ## To Do List
-[ ] Database  
-[ ] Api endpoints  
-    - login (get?)  
-    - logout (put?)  
-    - register (post)  
-    - save gif (put)  
-    - delete saved gif (update maybe?)  
-    - delete account (delete)  
-    - Display saved gifs on profile page (get)  
-[ ] Connect to react ui  
+- [x] Database  
+- [] API endpoints  
+    - [] login (post)  
+    - [] logout (get)  
+    - [x] register (post)  
+    - [x] save gif (put)  
+    - [x] delete saved gif (delete)  
+    - [x] delete account (delete)  
+    - [x] Get saved gifs for a user (get)
+    - [x] Password change (put)
+    - [x] Email change (put)
+    - [x] Name change (put)
+    - [x] Show all users (get)
+- [] Connect to react ui
+  - [] Session storage
+  - [x] Register (once user is logged in, the sign in button should be replaced with 'logged out')
+  - [] Login (once user is logged in, the sign in button should be replaced with 'logged out')
+  - [] Profile page (needs to link to change password, delete gif, display gifs/user info, and delete account)
+  - [] Share (needs to link to add gif). Share page needs a button for saving, as well
+- [] Documentation
+  - [x] deploy.md
+  - [] api.md
+  - [] solutions.md
+  - [] instructions.md
 
 ## Extras
 

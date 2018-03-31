@@ -27,7 +27,8 @@ var UserSchema = new mongoose.Schema({
 
 });
 
-// Store password securely
+// Store password securely.
+// From https://medium.com/of-all-things-tech-progress/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359
 UserSchema.pre('save', function (next) {
   var user = this;
   bcrypt.hash(user.password, 10, function (err, hash){
@@ -36,7 +37,7 @@ UserSchema.pre('save', function (next) {
     }
     user.password = hash;
     next();
-  })
+  });
 });
 
 var User = mongoose.model('User', UserSchema);

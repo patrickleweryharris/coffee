@@ -6,10 +6,12 @@
 $ heroku config:get MONGODB_URI
 ```
 
+If you need to access the db locally
+
 ### Deployment
 
 ```
-$ cd client && npm run build
+$ npm run build
 $ git add .
 $ git commit -m 'your commit message'
 $ git push heroku master
