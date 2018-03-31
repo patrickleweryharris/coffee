@@ -67,9 +67,9 @@ See [docs/api.md](/docs/api.md)
 
 ## To Do List
 - [x] Database  
-- [] API endpoints  
-    - [] login (post)  
-    - [] logout (get)  
+- [ ] API endpoints  
+    - [ ] login (post)  
+    - [ ] logout (get)  
     - [x] register (post)  
     - [x] save gif (put)  
     - [x] delete saved gif (delete)  
@@ -79,21 +79,21 @@ See [docs/api.md](/docs/api.md)
     - [x] Email change (put)
     - [x] Name change (put)
     - [x] Show all users (get)
-- [] Connect to react ui
-  - [] Session storage
+- [ ] Connect to react ui
+  - [ ] Session storage
   - [x] Register (once user is logged in, the sign in button should be replaced with 'logged out')
-  - [] Login (once user is logged in, the sign in button should be replaced with 'logged out')
-  - [] Profile page (needs to link to change password, delete gif, display gifs/user info, and delete account)
-  - [] Share (needs to link to add gif). Share page needs a button for saving, as well
-- [] Documentation
+  - [ ] Login (once user is logged in, the sign in button should be replaced with 'logged out')
+  - [ ] Profile page (needs to link to change password, delete gif, display gifs/user info, and delete account)
+  - [ ] Share (needs to link to add gif). Share page needs a button for saving, as well
+- [ ] Documentation
   - [x] deploy.md
-  - [] api.md
-  - [] solutions.md
-  - [] instructions.md
+  - [ ] api.md (mostly done except for `api/login`)
+  - [ ] solutions.md
+  - [ ] instructions.md
 
 ## Extras
 
 - Save past searches
 - Password reset
 - Friends?
-- Upload?????
+- Upload
