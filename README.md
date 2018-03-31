@@ -1,6 +1,6 @@
 # Coffee Gif Browser
 
-[![Heroku](http://heroku-badge.herokuapp.com/?app=mysterious-crag-44463&style=flat&svg=1&root=index.html)]
+![Heroku](http://heroku-badge.herokuapp.com/?app=mysterious-crag-44463&style=flat&svg=1&root=index.html)
 
 ## Live [here](https://mysterious-crag-44463.herokuapp.com/#/)
 
