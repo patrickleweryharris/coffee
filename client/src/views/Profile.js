@@ -36,6 +36,7 @@ class Profile extends Component {
                     {renderedGifs}
                 </div>
             </div>
+            // FIXME should display the basic user data. Maybe link to change pw, email and name forms?
         );
     }
 
@@ -52,6 +53,8 @@ class Profile extends Component {
 
     /* Placeholder. Since we won't have a logged in user until next phase.
        Based on code from class */
+
+       // TODO replace this with a method that calls /api/gifs to get the user's saved gifs
     randomGifs() {
         fetch("https://api.giphy.com/v1/gifs/trending?api_key=vRvUFu9f8SrzzJWqp9b7aiIKTqKExxA2&limit=5")
         .then(response => {
