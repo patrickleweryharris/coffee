@@ -80,7 +80,19 @@ class Reset extends Component {
     }
 
     deleteAccount(){
-
+      fetch('api/users/' + localStorage.getItem("uid"), {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      }).then(response => {
+        if (response.ok){
+          localStorage.removeItem("uid");
+          localStorage.removeItem("isLoggedIn");
+          window.location.reload();
+        }
+      }).catch(error => console.log(error));
     }
 
     handleInputChange(event){

@@ -30,12 +30,12 @@ Logins are facilitated by a `POST` request to the the `api/login` endpoint (see 
 Passwords are hashed via `bcrypt` and checked against the password in the database.
 Upon a successful login, two items are saved in localStorage. `isLoggedIn` is a boolean
 which denotes whether or not a user is logged in. `uid` is a string which contains a logged in user's
-unique identifier, which is used for facilitating saving and profile requests. 
+unique identifier, which is used for facilitating saving and profile requests.
 
 ## Using Coffee
 
-Our app has seven views: `Trending`, `Search`, `Translate`, `Share`, `Profile`, `Log In`, and `Register`. Most of these can be accessed through
-clicking the link to them in the navigation bar at the top of the app. `Share` is accessed through clicking any gif in the application. `Register` is only available from the `Log In` view.
+Our app has seven views: `Trending`, `Search`, `Translate`, `Share`, `Profile`, `Reset`, `Log In`, and `Register`. Most of these can be accessed through
+clicking the link to them in the navigation bar at the top of the app. `Share` is accessed through clicking any gif in the application. `Register` is only available from the `Log In` view. `Reset` is only available from the `Profile` view.
 
 ### Trending
 `Trending` is the default view of our application, where a user will start from. It displays the top 25 trending gifs from Giphy. If a user clicks on a gif,
@@ -56,11 +56,13 @@ to share the gif on Facebook or Twitter.
 If a user is logged in, they can save gifs to their profile from this view by
 pressing the coffee button.
 
-### Profile
+### Profile & Reset
 
 The `Profile` view displays the saved gifs of a logged in user, as well as offering links to change
 their user information (password, email, name). Users can also unsave gifs from this view.
-It can be accessed from the nav-bar. If a user is not logged in, this view redirects to the login page
+It can be accessed from the nav-bar. If a user is not logged in, this view redirects to the login page.
+Users can also access the `Reset` view from here, where they can change various account values (email, name, password), as well as delete their account. `Reset` is also only available to a logged in user, and will redirect to the login page
+if a user is not logged in.
 
 ### Log-in and Register
 
