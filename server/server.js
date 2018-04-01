@@ -38,12 +38,24 @@ function handleError(res, reason, message, code) {
 }
 
 /*  "/api/users"
- *    GET: shows all users
+ *    GET: shows all users, or a single user
  *    DELETE: deletes a user given by an id
  *    PUT: Update a given user's password, name, or email
  */
 app.get("/api/users", function(req, res, next) {
   User.find({}, {'name': 1, 'email': 1} , function(err, users){
+    if(err){
+      handleError(res, err.message, "Failed to get list of users.", 500);
+    }
+    else{
+      res.status(200).send(users);
+    }
+  });
+});
+
+// Return simple info about a user
+app.get("/api/users/:id", function(req, res) {
+  User.find({'_id': req.params.id}, {'name': 1, 'email': 1} , function(err, users){
     if(err){
       handleError(res, err.message, "Failed to get list of users.", 500);
     }

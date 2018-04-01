@@ -1,40 +1,49 @@
 import React, { Component } from "react";
 import { NavLink, Redirect} from "react-router-dom";
+import '../style/Profile.css';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-          gifs: []
+          gifs: [],
+          name: ''
         };
         this.grabImages = this.grabImages.bind(this);
-        this.randomGifs = this.randomGifs.bind(this);
+        this.userGifs = this.userGifs.bind(this);
+        this.userInfo = this.userInfo.bind(this);
     }
 
     componentDidMount(){
       window.scrollTo(0, 0);
       if(localStorage.getItem("isLoggedIn")){
-        this.randomGifs();
+        this.userGifs();
+        this.userInfo();
       }
     }
 
     render () {
+      var parent = this;
       if(!localStorage.getItem("isLoggedIn")){ // If user is not logged in, they can't view their profile
         return <Redirect to='/login'/>;
       }
       var renderedGifs = this.state.gifs.map(function (gif, i){
-          return (
+          return (<figure className="savedDisplay" key={i}>
             <NavLink to={'/share?gif='+ gif} key={i} className="gifLink">
-              <img src={gif} key={i} alt="Gif failed to load" className='gif'/>
-            </NavLink>)
+              <img src={gif} alt="Gif failed to load" className='gif'/>
+            </NavLink><figcaption><NavLink to="/profile" className="deleteLink"
+            onClick={parent.deleteGif.bind(null, gif)}>Delete Gif</NavLink></figcaption></figure>)
       });
         return (
             <div>
-                <h1>My Gifs</h1>
+                <h1>{this.state.name}'s Gifs</h1>
                 <div className="gifbox" ref="gifContainer">
                     {renderedGifs}
                 </div>
+                <br/>
+                <br/>
+                <br/>
             </div>
             // FIXME should display the basic user data. Maybe link to change pw, email and name forms?
         );
@@ -44,19 +53,23 @@ class Profile extends Component {
         var len = data.length;
         var images = [];
         for (var i = 0; i < len; i++){
-          images.push(data[i].images.fixed_height.url);
+          images.push(data[i]);
         }
 
         this.setState({gifs: images})
 
     }
 
+    grabInfo(data){
+        this.setState({name: data["name"]})
+    }
+
     /* Placeholder. Since we won't have a logged in user until next phase.
        Based on code from class */
 
        // TODO replace this with a method that calls /api/gifs to get the user's saved gifs
-    randomGifs() {
-        fetch("https://api.giphy.com/v1/gifs/trending?api_key=vRvUFu9f8SrzzJWqp9b7aiIKTqKExxA2&limit=5")
+    userGifs() {
+        fetch("/api/gifs/" + localStorage.getItem("uid"))
         .then(response => {
                 if (response.ok) {
                     return response.json()
@@ -66,10 +79,46 @@ class Profile extends Component {
             })
             .then(json => {
                 // console.log("Response ",json)
-                this.grabImages(json.data)
+                this.grabImages(json[0]["gifs"]);
+                console.log(json);
 
         })
         .catch(error => console.log(error))
+    }
+
+    deleteGif(gif){
+      console.log("called");
+      fetch('api/gifs/' + localStorage.getItem("uid"), {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          "gif": gif
+        })
+      }).then(json => {
+        console.log("Response ", json);
+        window.location.reload();
+      })
+    }
+
+    userInfo(){
+      fetch("/api/users/" + localStorage.getItem("uid"))
+      .then(response => {
+              if (response.ok) {
+                  return response.json()
+              } else {
+                  throw new Error("No Gifs");
+              }
+          })
+          .then(json => {
+              console.log("Response ",json)
+              this.grabInfo(json[0]);
+
+
+      })
+      .catch(error => console.log(error))
     }
 }
 
