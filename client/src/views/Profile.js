@@ -28,7 +28,7 @@ class Profile extends Component {
       if(!localStorage.getItem("isLoggedIn")){ // If user is not logged in, they can't view their profile
         return <Redirect to='/login'/>;
       }
-      this.getUsername();
+      
       var renderedGifs = this.state.gifs.map(function (gif, i){
           return (<figure className="savedDisplay" key={i}>
             <NavLink to={'/share?gif='+ gif} key={i} className="gifLink">
