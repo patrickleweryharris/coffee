@@ -93,11 +93,11 @@ is included in the search result for a second before disappearing.
     - [x] Email change (put)
     - [x] Name change (put)
     - [x] Show all users (get)
-- [ ] Connect to react ui
+- [x] Connect to react ui
   - [x] Session storage
   - [x] Register (once user is logged in, the sign in button should be replaced with 'log out')
   - [x] Login (once user is logged in, the sign in button should be replaced with 'log out')
-  - [ ] Profile page (needs to link to change password, delete gif, display gifs/user info, and delete account)
+  - [x] Profile page (needs to link to change password, delete gif, display gifs/user info, and delete account)
   - [x] Share (needs to link to add gif). Share page needs a button for saving, as well
 - [x] Documentation
   - [x] deploy.md
@@ -106,7 +106,7 @@ is included in the search result for a second before disappearing.
   - [x] instructions.md
   - [x] attribution.md
 
-## Extras
+## Extras - if we have time
 
 - Save past searches
 - Password reset
