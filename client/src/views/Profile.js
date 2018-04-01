@@ -28,6 +28,7 @@ class Profile extends Component {
       if(!localStorage.getItem("isLoggedIn")){ // If user is not logged in, they can't view their profile
         return <Redirect to='/login'/>;
       }
+      this.getUsername();
       var renderedGifs = this.state.gifs.map(function (gif, i){
           return (<figure className="savedDisplay" key={i}>
             <NavLink to={'/share?gif='+ gif} key={i} className="gifLink">
@@ -69,7 +70,9 @@ class Profile extends Component {
        Based on code from class */
 
        // TODO replace this with a method that calls /api/gifs to get the user's saved gifs
+
     userGifs() {
+
         fetch("/api/gifs/" + localStorage.getItem("uid"))
         .then(response => {
                 if (response.ok) {
@@ -79,6 +82,7 @@ class Profile extends Component {
                 }
             })
             .then(json => {
+
                 // console.log("Response ",json)
                 this.grabImages(json[0]["gifs"]);
                 console.log(json);
@@ -119,6 +123,7 @@ class Profile extends Component {
 
       })
       .catch(error => console.log(error));
+
     }
 }
 
