@@ -6,16 +6,18 @@ class Profile extends Component {
         super(props);
 
         this.state = {
-          gifs: []
+            username: "",
+            gifs: []
         };
         this.grabImages = this.grabImages.bind(this);
-        this.randomGifs = this.randomGifs.bind(this);
+        this.getSavedGifs = this.getSavedGifs.bind(this);
+        this.getUsername = this.getUsername.bind(this);
     }
 
     componentDidMount(){
       window.scrollTo(0, 0);
       if(localStorage.getItem("isLoggedIn")){
-        this.randomGifs();
+        this.getSavedGifs();
       }
     }
 
@@ -23,6 +25,7 @@ class Profile extends Component {
       if(!localStorage.getItem("isLoggedIn")){ // If user is not logged in, they can't view their profile
         return <Redirect to='/login'/>;
       }
+      this.getUsername();
       var renderedGifs = this.state.gifs.map(function (gif, i){
           return (
             <NavLink to={'/share?gif='+ gif} key={i} className="gifLink">
@@ -31,7 +34,8 @@ class Profile extends Component {
       });
         return (
             <div>
-                <h1>My Gifs</h1>
+                <h1>{this.username}</h1>
+                <p>My Gifs</p>
                 <div className="gifbox" ref="gifContainer">
                     {renderedGifs}
                 </div>
@@ -44,7 +48,7 @@ class Profile extends Component {
         var len = data.length;
         var images = [];
         for (var i = 0; i < len; i++){
-          images.push(data[i].images.fixed_height.url);
+          images.push(data[i]);
         }
 
         this.setState({gifs: images})
@@ -55,8 +59,8 @@ class Profile extends Component {
        Based on code from class */
 
        // TODO replace this with a method that calls /api/gifs to get the user's saved gifs
-    randomGifs() {
-        fetch("https://api.giphy.com/v1/gifs/trending?api_key=vRvUFu9f8SrzzJWqp9b7aiIKTqKExxA2&limit=5")
+    getSavedGifs() {
+        fetch("/api/gifs/" + localStorage.getItem("uid"))
         .then(response => {
                 if (response.ok) {
                     return response.json()
@@ -65,9 +69,28 @@ class Profile extends Component {
                 }
             })
             .then(json => {
-                // console.log("Response ",json)
-                this.grabImages(json.data)
+                this.grabImages(json[0].gifs);
 
+        })
+        .catch(error => console.log(error))
+    }
+
+    getUsername() {
+        fetch("/api/users/")
+        .then(response => {
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    throw new Error("No username");
+                }
+            })
+            .then(json => {
+                for (var i = 0; i < json.length; i++) {
+                    if (localStorage.getItem("uid") === json[i]._id) {
+                        this.username = json[i].name;
+                    }
+                    
+                }
         })
         .catch(error => console.log(error))
     }
