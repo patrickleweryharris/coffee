@@ -38,9 +38,6 @@ class Login extends Component {
                   <br />
                   <div>
                       <p> No account? <NavLink to="/register" className="pwHelp">Sign up here</NavLink></p>
-                      <div className="forget">
-                          <NavLink to="/reset" className="pwHelp">Forgot password?</NavLink>
-                      </div>
                   </div>
                 </form>
             </div>

@@ -69,22 +69,49 @@ app.get("/api/users/:id", function(req, res) {
 app.put("/api/users/:id/:variable", function(req, res, next){
   if(req.body.updater){
     if (req.params.variable === 'password'){
-      // Passwords that go into the db need to be hashed
-      bcrypt.hash(req.body.updater, 10, function (err, hash){
+      // Verify that old and new passwords match
+      User.findOne({ _id: req.params.id }, function(err, user) {
         if (err) {
-          handleError(res, err.message, "Failed to hash new pw", 500);
+          handleError(res, err, 'Database error', 500);
+          return 500;
+         }
+        if (user === null) {
+          res.status(401).send('Incorrect username / password.');
+          return 401;
         }
         else{
-          User.findByIdAndUpdate(req.params.id, {'password': hash} , function(error, user){
-            if(error){
-              handleError(res, error.message, "Failed to update password", 500);
+          user.validPassword(req.body.old, function(err, match){
+            if (err){
+              console.log(err)
             }
-            else{
-              res.status(200).send("Password updated")
+            if (match){ // matching password
+              // hash new password and change
+              bcrypt.hash(req.body.updater, 10, function (err, hash){
+                if (err) {
+                  handleError(res, err.message, "Failed to hash new pw", 500);
+                }
+                else{
+                  User.findByIdAndUpdate(req.params.id, {'password': hash} , function(error, user){
+                    if(error){
+                      handleError(res, error.message, "Failed to update password", 500);
+                    }
+                    else{
+                      res.status(200).send("Password updated")
+                    }
+                  });
+                }
+              });
+            }
+            else {
+              res.status(401).send('Incorrect current password.');
+              return 401;
             }
           });
+
         }
       });
+
+
     }
 
     else if (req.params.variable === 'email' || req.params.variable === 'name'){
@@ -95,8 +122,11 @@ app.put("/api/users/:id/:variable", function(req, res, next){
         if(error){
           handleError(res, error.message, "Failed to update", 500);
         }
+        else if(user){
+          res.status(200).send("updated");
+        }
         else{
-          res.status(200).send("updated")
+          res.status(400).send("User not found");
         }
       });
     }

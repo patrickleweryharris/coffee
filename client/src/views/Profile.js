@@ -44,8 +44,9 @@ class Profile extends Component {
                 <br/>
                 <br/>
                 <br/>
+                <NavLink to='/reset' className="deleteLink">Change Account Values</NavLink>
             </div>
-            // FIXME should display the basic user data. Maybe link to change pw, email and name forms?
+
         );
     }
 
@@ -87,7 +88,6 @@ class Profile extends Component {
     }
 
     deleteGif(gif){
-      console.log("called");
       fetch('api/gifs/' + localStorage.getItem("uid"), {
         method: 'DELETE',
         headers: {
@@ -100,7 +100,7 @@ class Profile extends Component {
       }).then(json => {
         console.log("Response ", json);
         window.location.reload();
-      })
+      }).catch(error => console.log(error));
     }
 
     userInfo(){
@@ -118,7 +118,7 @@ class Profile extends Component {
 
 
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log(error));
     }
 }
 
