@@ -4,6 +4,8 @@
 
 ## Live [here](https://mysterious-crag-44463.herokuapp.com/#/)
 
+Coffee is a gif browsing web app developed as a final project for CSC309 at the University of Toronto. 
+
 ## Table of Contents
 - [Install](#install)
 - [Usage](#usage)
@@ -79,36 +81,3 @@ is included in the search result for a second before disappearing.
   "gifs": []
 }
 ```
-
-## To Do List
-- [x] Database  
-- [x] API endpoints  
-    - [x] login (post)  
-    - [x] register (post)  
-    - [x] save gif (put)  
-    - [x] delete saved gif (delete)  
-    - [x] delete account (delete)  
-    - [x] Get saved gifs for a user (get)
-    - [x] Password change (put)
-    - [x] Email change (put)
-    - [x] Name change (put)
-    - [x] Show all users (get)
-- [x] Connect to react ui
-  - [x] Session storage
-  - [x] Register (once user is logged in, the sign in button should be replaced with 'log out')
-  - [x] Login (once user is logged in, the sign in button should be replaced with 'log out')
-  - [x] Profile page (needs to link to change password, delete gif, display gifs/user info, and delete account)
-  - [x] Share (needs to link to add gif). Share page needs a button for saving, as well
-- [x] Documentation
-  - [x] deploy.md
-  - [x] api.md
-  - [x] solutions.md
-  - [x] instructions.md
-  - [x] attribution.md
-
-## Extras - if we have time
-
-- Save past searches
-- Password reset
-- Friends?
-- Upload
