@@ -2,7 +2,7 @@
 
 ![Heroku](http://heroku-badge.herokuapp.com/?app=mysterious-crag-44463&style=flat&svg=1&root=index.html)
 
-## Live [here](https://mysterious-crag-44463.herokuapp.com/#/)
+## Live [here](http://coffee.plh.io)
 
 Coffee is a gif browsing web app developed as a final project for CSC309 at the University of Toronto. 
 
