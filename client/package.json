@@ -6,11 +6,11 @@
   "dependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
-    "react-alert": "^3.4.0",
+    "react-alert": "^4.0.4",
     "react-alert-template-basic": "^1.0.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1",
+    "react-scripts": "2.1.1",
     "react-transition-group": "^2.3.0"
   },
   "scripts": {
